@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Find out script's dir, resolving any links to the script itself
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ] ; do SOURCE="$(readlink "$SOURCE")"; done
+DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+
+cd $DIR/..
+#gsc -:s -e '(begin (load "/data/projects/scheme-prelude/src/prelude") (load "arch/sdl") (load "loader"))'
+gsc -e '(begin (define-cond-expand-feature sdl) (include "/data/projects/scheme-prelude/src/prelude.scm") (include "loader.scm"))'

@@ -1,0 +1,8 @@
+#!/bin/sh
+
+ANYGAME_ROOT=/data/projects/bh-anygame
+ANYGAME_ANDROID_ROOT=$ANYGAME_ROOT/android
+PROJECT_DIR=`pwd`
+
+cd $ANYGAME_ANDROID_ROOT && ant -Dmain=$PROJECT_DIR/src/main.scm $*
+#cd $ANYGAME_ANDROID_ROOT && ant -Dmain=$PROJECT_DIR/src/android/main-android.scm $*
