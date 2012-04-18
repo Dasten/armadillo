@@ -23,12 +23,19 @@
        (draw:rectangle/corner-corner 0 0 maxx maxy)
        ;;Draw players
        (draw:fill-color! (make-color/rgba 1 0 1 1))
-       (draw:circle/center init-c-pos-x b-pos-y 50) 
-       (draw:rectangle/corner-corner 0 0 50 50)
+       (draw:circle/center init-c-pos-x b-pos-y 10) 
+       
 
+       ;;SURFACE
+       (draw:on surface)
        ;;EXIT
        (if (input:key-pressed? 27)
            (exit 0))
        ;;Main loop
        (loop  
-        (+ b-pos-y 1))))))
+        (cond
+         ((= b-pos-y init-c-pos-y) 
+          (if (input:key-pressed? 32) (- init-c-pos-y 100) init-c-pos-y))
+         ((< b-pos-y init-c-pos-y) init-c-pos-y)
+         (else
+          (+ b-pos-y 0.001))))))))
