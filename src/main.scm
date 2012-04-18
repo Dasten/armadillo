@@ -17,7 +17,8 @@
           (init-c-pos-x (* maxx 0.50))
           (init-c-pos-y (* maxy 0.50))
           (c-size (* maxy 0.01)))
-     (let loop ((b-pos-y init-c-pos-y))
+     (let loop ((b-pos-y init-c-pos-y)
+                (b-state 0))
        ;;Draw neutral canvas
        (draw:fill-color! (make-color/rgba 0 0 0 1))
        (draw:rectangle/corner-corner 0 0 maxx maxy)
@@ -31,11 +32,19 @@
        ;;EXIT
        (if (input:key-pressed? 27)
            (exit 0))
+       (sdl::delay 20)
        ;;Main loop
-       (loop  
+       (loop 
+        ;;b-pos-y
         (cond
          ((= b-pos-y init-c-pos-y) 
           (if (input:key-pressed? 32) (- init-c-pos-y 100) init-c-pos-y))
-         ((< b-pos-y init-c-pos-y) init-c-pos-y)
+         ((> b-pos-y init-c-pos-y) init-c-pos-y)
          (else
-          (+ b-pos-y 0.001))))))))
+          (cond
+           ((= b-state 0) (+ b-pos-y 1))
+           ((= b-state 1) (- b-pos-y 1)))))
+        ;;b-state
+        (cond
+         ((= b-pos-y (- init-c-pos-y 100)) 1)
+         ((= b-pos-y init-c-pos-y) 0)))))))
