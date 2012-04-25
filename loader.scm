@@ -4,9 +4,7 @@
 ;;; Module loading
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(%load math: constants)
-(%load math: vect2)
-(%load geometry: kernel)
+(%load math: math)
 (%load cairo: cairo)
 (%load sdl: sdl)
 (%library playground)
