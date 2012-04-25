@@ -7,6 +7,6 @@
 (%load math: math)
 (%load cairo: cairo)
 (%load sdl: sdl)
-(%library playground)
+(%load playground: playground)
 
 (%load src/main)
