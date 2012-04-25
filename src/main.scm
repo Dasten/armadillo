@@ -16,16 +16,18 @@
           (maxy (environment-size-y env))
           (init-c-pos-x (* maxx 0.50))
           (init-c-pos-y (* maxy 0.50))
-          (c-size (* maxy 0.01)))
+          (c-size (* maxy 0.01))
+          (jump-v 5))
      (let loop ((b-pos-y init-c-pos-y)
-                (b-state 0))
+                (b-state 'fall))
+       (pp b-pos-y)
        ;;Draw neutral canvas
        (draw:fill-color! (make-color/rgba 0 0 0 1))
        (draw:rectangle/corner-corner 0 0 maxx maxy)
        ;;Draw players
        (draw:fill-color! (make-color/rgba 1 0 1 1))
-       (draw:circle/center init-c-pos-x b-pos-y 10) 
-       
+       ;;(draw:circle/center init-c-pos-x b-pos-y 10) 
+       (draw:rectangle/center-sides init-c-pos-x b-pos-y 10.0 10.0)
 
        ;;SURFACE
        (draw:on surface)
@@ -35,16 +37,18 @@
        (sdl::delay 20)
        ;;Main loop
        (loop 
+        
+        
         ;;b-pos-y
         (cond
-         ((= b-pos-y init-c-pos-y) 
-          (if (input:key-pressed? 32) (- init-c-pos-y 100) init-c-pos-y))
-         ((> b-pos-y init-c-pos-y) init-c-pos-y)
-         (else
-          (cond
-           ((= b-state 0) (+ b-pos-y 1))
-           ((= b-state 1) (- b-pos-y 1)))))
+         ((and (= b-pos-y init-c-pos-y)
+               (eq? b-state 'fall)) init-c-pos-y)
+         ((eq? b-state 'fall) (+ b-pos-y jump-v))
+         ((eq? b-state 'jump) (- b-pos-y jump-v)))
         ;;b-state
         (cond
-         ((= b-pos-y (- init-c-pos-y 100)) 1)
-         ((= b-pos-y init-c-pos-y) 0)))))))
+         ((and (= b-pos-y init-c-pos-y)
+               (input:key-pressed? 32)) 'jump)
+         ((<= b-pos-y  (- init-c-pos-y 100.0)) 'fall)
+         (else
+          b-state)))))))
