@@ -4,9 +4,9 @@
 ;;; Module loading
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(%load math: math)
-(%load cairo: cairo)
-(%load sdl: sdl)
-(%load playground: playground)
+(%load-lib math)
+(%load-lib cairo)
+(%load-lib sdl)
+(%load-lib  playground)
 
-(%load src/main)
+(%load-module src/main)
