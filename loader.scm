@@ -7,6 +7,6 @@
 (%load-lib math)
 (%load-lib cairo)
 (%load-lib sdl)
-(%load-lib  playground)
+(%load-lib playground)
 
 (%load-module src/main)
