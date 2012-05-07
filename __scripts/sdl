@@ -7,4 +7,4 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
 cd $DIR/..
 #gsc -:s -e '(begin (load "/data/projects/scheme-prelude/src/prelude") (load "arch/sdl") (load "loader"))'
-gsc -e '(begin (define-cond-expand-feature sdl) (include "/data/projects/scheme-prelude/src/prelude.scm") (include "loader.scm"))'
+gsc -e '(begin (define-cond-expand-feature sdl) (include "/data/projects/scheme-prelude/src/prelude#.scm") (include "loader.scm"))'
