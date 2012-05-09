@@ -45,18 +45,11 @@
         
         
         ;;b-pos-y
-        (cond
-         ((and (= b-pos-y init-c-pos-y)
-               (eq? b-state 'fall)) init-c-pos-y)
-         ((eq? b-state 'fall) (+ b-pos-y jump-v))
-         ((eq? b-state 'jump) (- b-pos-y jump-v)))
+        (Y-movement b-state b-pos-y init-c-pos-y jump-v)
+
         ;;b-state
-        (cond
-         ((and (= b-pos-y init-c-pos-y)
-               (input:key-pressed? 32)) 'jump)
-         ((<= b-pos-y  (- init-c-pos-y 100.0)) 'fall)
-         (else
-          b-state))
+        (Y-state b-state b-pos-y init-c-pos-y 32)
+
         ;;current-speed
         (speed current-speed max-speed min-speed initial-speed pendant angle)
         ;;angle
