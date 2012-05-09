@@ -2,7 +2,7 @@
 (define (acceleration angle)
   (sin angle))
 
-;;Speed
+;;SpeedX
 (define (speed current-speed max-speed min-speed plain-speed pendant angle) 
   (cond ((equal? pendant 'plain)
          (cond ((= current-speed plain-speed)
@@ -25,7 +25,7 @@
          (error "No identificable pendant"))))
 
 
-;;Movement
+;;MovementX
 (define (horizontal-move current-speed initial-speed current-pos min-x max-x)
   (cond ((= current-speed initial-speed)
          (cond ((= current-pos 0)
@@ -46,3 +46,23 @@
              (+ current-pos current-speed)))
         (else 
          (error "Invalid speed comparation"))))
+
+;;Y MOVEMENT FUNCTION
+(define (Y-movement b-state b-pos-y init-pos-y jump-v)
+  (cond
+   ((and (= b-pos-y init-c-pos-y)
+         (eq? b-state 'fall)) init-pos-y)
+   ((eq? b-state 'fall) (+ b-pos-y jump-v))
+   ((eq? b-state 'jump) (- b-pos-y jump-v))))
+
+;;Y STATE FUNCTION
+(define (Y-state b-state b-pos-y init-pos-y key)
+  (cond
+   ((and (= b-pos-y init-pos-y)
+         (input:key-pressed? 32)) 'jump)
+   ((<= b-pos-y  (- init-c-pos-y 100.0)) 'fall)
+   (else
+    b-state)))
+
+
+
