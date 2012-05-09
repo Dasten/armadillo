@@ -9,4 +9,4 @@
 (%load sdl: sdl)
 (%load playground: playground)
 
-(%load src/main)
+(%load main)

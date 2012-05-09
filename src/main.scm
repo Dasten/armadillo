@@ -1,54 +1,8 @@
 ;; Copyright (c) 2012, Alvaro Castro-Castilla. All rights reserved.
 ;; Game by: Daniel Sanchez, Alejandro Cabeza, Carlos Belmonte and Juan Maria Vergara
 
+(load "physics")
 
-;;;;;;;;;;ALEX;;;;;;;;;;;;;;;
-(define (acceleration angle)
-  (* 3 (sin angle)))
-
-;;Speed
-
-(define (speed current_speed max_speed min_speed plain_speed pendant angle) 
-  (cond ((equal? pendant 'plain)
-         (cond ((= current_speed plain_speed)
-                current_speed)                  
-               ((< current_speed plain_speed)
-                (+ current_speed (* (acceleration angle) 10)))
-               ((> current_speed plain_speed)
-                (- current_speed (* (acceleration angle) 10)))))
-        ((equal? pendant 'up)         
-         (if (= current_speed min_speed)
-             current_speed
-             (- current_speed (* (acceleration angle) 10))))
-        ((equal? pendant 'down)
-         (if (= current_speed max_speed)
-             current_speed                       
-             (+ current_speed (* (acceleration angle) 10))))))
-
-
-;;Movement
-
-(define (horizontal_move current_speed initial_speed current_pos min_x max_x)
-  (cond ((= current_speed initial_speed)
-         (cond ((= current_pos 0)
-                current_pos)
-               ((< 0 current_pos)
-                (- current_pos (* current_speed 10)))
-               ((> 0 current_pos)
-                (+ current_pos (* current_speed 10)))))
-        ((< current_speed initial_speed)
-         (if (= current_pos min_x)
-             current_pos
-             (- current_pos (* current_speed 10))))
-        ((> current_speed initial_speed)
-         (if (= current_pos max_x)
-             (current_pos)
-             (+ current_pos (* current_speed 10)))))) 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-           
- 
 (pg:app
  setup: (lambda (resources)
           (make-environment 1280 720 resources #f))
@@ -72,14 +26,13 @@
                 (angle 0.7)
                 (pendant 'up)
                 (current-pos (* maxx 0.5))) ;; 'up 'down 'plain
-       (pp b-pos-y)
        ;;Draw neutral canvas
        (draw:fill-color! (make-color/rgba 0 0 0 1))
        (draw:rectangle/corner-corner 0 0 maxx maxy)
        ;;Draw players
        (draw:fill-color! (make-color/rgba 1 0 1 1))
        ;;(draw:circle/center init-c-pos-x b-pos-y 10) 
-       (draw:rectangle/center-sides  current-pos b-pos-y 10.0 10.0)
+       (draw:rectangle/center-sides current-pos b-pos-y 10.0 10.0)
 
        ;;SURFACE
        (draw:on surface)
@@ -111,4 +64,4 @@
         ;;pendant
         'plain
         ;;current-pos
-        (horizontal_move current-speed initial-speed current-pos 0 maxx))))))
+        (pv (horizontal-move current-speed initial-speed current-pos (* 0.2 maxx) (* 0.8 maxx))))))))
