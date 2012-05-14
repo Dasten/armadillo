@@ -64,3 +64,7 @@
   (else
    b-state)))
 
+;;Function for move obstacle
+(define (move-obstacle speed frequency obstacle-high) 
+  (draw:fill-color! (make-color/rgba 0.337 0.925 0.976 1))
+  (draw:rectangle/corner-sides (modulo speed frequency) (- 540 obstacle-high) 20 obstacle-high))
