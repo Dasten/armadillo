@@ -1,3 +1,4 @@
+srfi=/data/projects/scheme-srfi
 base=/data/projects/scheme-base
 math=/data/projects/scheme-math
 geometry=/data/projects/scheme-geometry
