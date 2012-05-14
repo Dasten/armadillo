@@ -49,20 +49,18 @@
 
 ;;Y MOVEMENT FUNCTION
 (define (Y-movement b-state b-pos-y init-pos-y jump-v)
-  (cond
-   ((and (= b-pos-y init-pos-y)
-         (eq? b-state 'fall)) init-pos-y)
-   ((eq? b-state 'fall) (+ b-pos-y jump-v))
-   ((eq? b-state 'jump) (- b-pos-y jump-v))))
+ (cond
+  ((and (= b-pos-y init-pos-y)
+        (eq? b-state 'fall)) init-pos-y)
+  ((eq? b-state 'fall) (+ b-pos-y (expt jump-v 2)))
+  ((eq? b-state 'jump) (- b-pos-y (* 0.5 (expt jump-v 4))))))
 
 ;;Y STATE FUNCTION
 (define (Y-state b-state b-pos-y init-pos-y key)
-  (cond
-   ((and (= b-pos-y init-pos-y)
-         (input:key-pressed? 32)) 'jump)
-   ((<= b-pos-y  (- init-pos-y 100.0)) 'fall)
-   (else
-    b-state)))
-
-
+ (cond
+  ((and (= b-pos-y init-pos-y)
+        (input:key-pressed? 32)) 'jump)
+  ((<= b-pos-y  (- init-pos-y 100.0)) 'fall)
+  (else
+   b-state)))
 
