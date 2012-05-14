@@ -21,18 +21,14 @@
           (max-speed 15)
           (min-speed 7))
      (let loop ((b-pos-y init-c-pos-y)
-                (b-state 'fall)
-                (current-speed initial-speed)
-                (angle 0.7)
-                (pendant 'up)
-                (current-pos (* maxx 0.5))) ;; 'up 'down 'plain
+                (b-state 'fall))
        ;;Draw neutral canvas
        (draw:fill-color! (make-color/rgba 0 0 0 1))
        (draw:rectangle/corner-corner 0 0 maxx maxy)
        ;;Draw players
        (draw:fill-color! (make-color/rgba 1 0 1 1))
        ;;(draw:circle/center init-c-pos-x b-pos-y 10) 
-       (draw:rectangle/center-sides current-pos b-pos-y 10.0 10.0)
+       (draw:rectangle/center-sides (/ maxx 2) b-pos-y 10.0 10.0)
 
        ;;SURFACE
        (draw:on surface)
@@ -48,13 +44,4 @@
         (Y-movement b-state b-pos-y init-c-pos-y jump-v)
 
         ;;b-state
-        (Y-state b-state b-pos-y init-c-pos-y 32)
-
-        ;;current-speed
-        (speed current-speed max-speed min-speed initial-speed pendant angle)
-        ;;angle
-        0
-        ;;pendant
-        'plain
-        ;;current-pos
-        (pv (horizontal-move current-speed initial-speed current-pos (* 0.2 maxx) (* 0.8 maxx))))))))
+        (Y-state b-state b-pos-y init-c-pos-y 32))))))
